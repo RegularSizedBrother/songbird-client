@@ -11,9 +11,7 @@ function App() {
         <Route path='/playlist'>
           <PlaylistPage />
         </Route>
-        <Route path='/results'>
-          <ResultsPage />
-        </Route>
+        <Route path='/results/:username' component={ResultsPage} />
         <Route path='/'>
           <TwitterPage />
         </Route>

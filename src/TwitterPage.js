@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import './TwitterPage.css';
 
 class TwitterPage extends Component {
@@ -7,6 +8,7 @@ class TwitterPage extends Component {
     this.state = {
       twitterHandle: 'BarackObama',
       textInput: '',
+      redirect: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -18,7 +20,18 @@ class TwitterPage extends Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
+    this.setState({redirect: true});
     console.log('Submitted');
+  }
+
+  redirect() {
+    if(this.state.redirect) {
+      return(<Redirect to={'/results/' + this.state.twitterHandle} />);
+    }
+    else {
+      return('');
+    }
   }
 
   render() {
@@ -43,6 +56,7 @@ class TwitterPage extends Component {
           </div>
           <div className='col-3' />
         </div>
+        {this.redirect()}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BarChart, LineChart, Line, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import './ResultsPage.css';
 
@@ -55,7 +55,17 @@ const dataBar = [
 
 class ResultsPage extends Component {
   componentDidMount() {
-
+    let username = this.props.match.params.username;
+    console.log(username);
+    fetch('http:localhost:8080/username?username=' + username)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({usernameInfo: result})
+        },
+        (error) => {
+          console.log('error')
+        });
   }
 
   render() {
