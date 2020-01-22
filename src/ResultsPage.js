@@ -28,12 +28,19 @@ class ResultsPage extends Component {
   componentDidMount() {
     let username = this.props.match.params.username;
     console.log(username);
-    fetch('http:localhost:8080/username?username=@' + username)
+    fetch('http://localhost:8080/username?username=' + username)
       .then(res => res.json())
       .then(
         (result) => {
+          let data = [
+            { name: 'Openness', val: result['Openness'] },
+            { name: 'Conscientious', val: result['Conscientiousness'] },
+            { name: 'Extrovert', val: result['Extraversion'] },
+            { name: 'Agreeable', val: result['Agreeableness'] },
+            { name: 'Empathy', val: result['Emotional Range'] },
+          ];
           console.log(result);
-          this.setState({usernameData: result});
+          this.setState({usernameData: data});
         },
         (error) => {
           console.log('error');

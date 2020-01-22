@@ -13,7 +13,7 @@ class PlaylistPage extends Component {
   componentDidMount() {
     let username = this.props.match.params.username;
     console.log(username);
-    fetch('http:localhost:8080/playlist?username=@' + username)
+    fetch('http://localhost:8080/playlist?username=' + username)
       .then(res => res.json())
       .then(
         (result) => {
