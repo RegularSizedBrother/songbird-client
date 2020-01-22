@@ -64,22 +64,21 @@ class TwitterPage extends Component {
   }
 
   render() {
-    let inputClass = this.state.changing ? 'form-control test' : 'form-control'
+    let inputClass = this.state.changing ? 'form-control' : 'form-control'
     return(
       <div id='background' className='fixed container-fluid'>
         <div className='row h-100'>
           <div className='col-3' />
           <div className='col-6'>
             <div className='centered'>
+              <h1 className="whiteText display-1 float-right">songbird.</h1>
               <form onSubmit={this.handleSubmit}>
                 <div className='form-group'>
-                  <div className='input-group'>
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">@</span>
-                    </div>
-                    <input type='text' className={inputClass} placeholder={exampleHandles[this.state.handleIndex]} value={this.state.value} onChange={this.handleChange} />
+                  <div className='input-group test'>
+                      <input type='text' className={inputClass} placeholder={exampleHandles[this.state.handleIndex]} value={this.state.value} onChange={this.handleChange} />
+                      <i>@</i>
                   </div>
-                  <label className='text-light ml-5 mt-1'>Enter your twitter handle...</label>
+                  <label className='text-light ml-4 mt-1'>Enter your twitter handle...</label>
                 </div>
               </form>
             </div>
