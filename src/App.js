@@ -8,9 +8,7 @@ function App() {
   return(
     <div>
       <Switch>
-        <Route path='/playlist'>
-          <PlaylistPage />
-        </Route>
+        <Route path='/playlist/:username' component={PlaylistPage} />
         <Route path='/results/:username' component={ResultsPage} />
         <Route path='/'>
           <TwitterPage />

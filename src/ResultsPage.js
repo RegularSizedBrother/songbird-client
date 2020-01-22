@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
 } from 'recharts';
 import { Redirect } from 'react-router-dom';
 import './ResultsPage.css';
@@ -8,15 +8,7 @@ import './ResultsPage.css';
 const data = [
   { name: 'Openness', val: 40.7 },
   { name: 'Conscientious', val: 80.3 },
-  { name: 'Extravert', val: 2.2 },
-  { name: 'Agreeable', val: 67.8 },
-  { name: 'Empathy', val: 34.9 },
-];
-
-const dataBar = [
-  { name: 'Openness', val: 40.7 },
-  { name: 'Conscientious', val: 80.3 },
-  { name: 'Extravert', val: 2.2 },
+  { name: 'Extrovert', val: 2.2 },
   { name: 'Agreeable', val: 67.8 },
   { name: 'Empathy', val: 34.9 },
 ];
@@ -25,7 +17,10 @@ class ResultsPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {redirect: false};
+    this.state = {
+      redirect: false,
+      usernameData: data
+    };
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -33,12 +28,12 @@ class ResultsPage extends Component {
   componentDidMount() {
     let username = this.props.match.params.username;
     console.log(username);
-    fetch('http:localhost:8080/username?username=' + username)
+    fetch('http:localhost:8080/username?username=@' + username)
       .then(res => res.json())
       .then(
         (result) => {
           console.log(result);
-          this.setState({usernameInfo: result});
+          this.setState({usernameData: result});
         },
         (error) => {
           console.log('error');
@@ -69,7 +64,7 @@ class ResultsPage extends Component {
             <BarChart
               width={600}
               height={400}
-              data={dataBar}
+              data={this.state.usernameData}
               margin={{
                 top: 40, right: 30, left: 20, bottom: 5,
               }}
@@ -91,7 +86,7 @@ class ResultsPage extends Component {
             <LineChart
               width={600}
               height={400}
-              data={data}
+              data={this.state.usernameData}
               margin={{
                 top: 40, right: 30, left: 20, bottom: 5,
               }}
