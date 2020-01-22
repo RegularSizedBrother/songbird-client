@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+  BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { Redirect } from 'react-router-dom';
 import './ResultsPage.css';
@@ -61,20 +61,20 @@ class ResultsPage extends Component {
           <div className='col-3'>
           </div>
           <div className='col-6 white'>
-            <BarChart
-              width={600}
-              height={400}
-              data={this.state.usernameData}
-              margin={{
-                top: 40, right: 30, left: 20, bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="val" fill="#8884d8" />
-            </BarChart>
+            <ResponsiveContainer width='100%' height={400}>
+              <BarChart
+                data={this.state.usernameData}
+                margin={{
+                  top: 40, right: 30, left: 20, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="val" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
           <div className='col-3'>
           </div>
@@ -83,20 +83,20 @@ class ResultsPage extends Component {
           <div className='col-3'>
           </div>
           <div className='col-6 white'>
-            <LineChart
-              width={600}
-              height={400}
-              data={this.state.usernameData}
-              margin={{
-                top: 40, right: 30, left: 20, bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Line type="monotone" dataKey="val" stroke="#8884d8" activeDot={{ r: 8 }} />
-            </LineChart>
+            <ResponsiveContainer width='100%' height={400}>
+              <LineChart
+                data={this.state.usernameData}
+                margin={{
+                  top: 40, right: 30, left: 20, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="val" stroke="#8884d8" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
           <div className='col-3'>
           </div>
