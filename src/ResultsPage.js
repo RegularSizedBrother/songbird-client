@@ -2,58 +2,34 @@ import React, { Component } from 'react';
 import {
   BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import { Redirect } from 'react-router-dom';
 import './ResultsPage.css';
 
 const data = [
-  {
-    name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-  },
-  {
-    name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-  },
-  {
-    name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-  },
+  { name: 'Openness', val: 40.7 },
+  { name: 'Conscientious', val: 80.3 },
+  { name: 'Extravert', val: 2.2 },
+  { name: 'Agreeable', val: 67.8 },
+  { name: 'Empathy', val: 34.9 },
 ];
 
-
 const dataBar = [
-  {
-    name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
-  },
-  {
-    name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
-  },
-  {
-    name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
-  },
-  {
-    name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
-  },
-  {
-    name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
-  },
-  {
-    name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
-  },
-  {
-    name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
-  },
+  { name: 'Openness', val: 40.7 },
+  { name: 'Conscientious', val: 80.3 },
+  { name: 'Extravert', val: 2.2 },
+  { name: 'Agreeable', val: 67.8 },
+  { name: 'Empathy', val: 34.9 },
 ];
 
 class ResultsPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {redirect: false};
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   componentDidMount() {
     let username = this.props.match.params.username;
     console.log(username);
@@ -61,11 +37,26 @@ class ResultsPage extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          this.setState({usernameInfo: result})
+          console.log(result);
+          this.setState({usernameInfo: result});
         },
         (error) => {
-          console.log('error')
+          console.log('error');
         });
+  }
+
+  handleClick(e) {
+    this.setState({redirect: true});
+  }
+
+  redirect() {
+    let username = this.props.match.params.username;
+    if(this.state.redirect) {
+      return(<Redirect to={'/playlist/' + username} />);
+    }
+    else {
+      return('');
+    }
   }
 
   render() {
@@ -87,9 +78,7 @@ class ResultsPage extends Component {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Legend />
-              <Bar dataKey="pv" stackId="a" fill="#8884d8" />
-              <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+              <Bar dataKey="val" fill="#8884d8" />
             </BarChart>
           </div>
           <div className='col-3'>
@@ -111,19 +100,26 @@ class ResultsPage extends Component {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+              <Line type="monotone" dataKey="val" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
           </div>
           <div className='col-3'>
           </div>
         </div>
+        <div className='row mt-2 mb-2'>
+          <div className='col-2'>
+          </div>
+          <div className='col-8'>
+            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>See my playlist</button>
+          </div>
+          <div className='col-2'>
+          </div>
+        </div>
+        {this.redirect()}
       </div>
     );
   }
 }
 
 export default ResultsPage;
-
 

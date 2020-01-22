@@ -3,6 +3,21 @@ import SpotifyPlayer from 'react-spotify-player';
 import './PlaylistPage.css';
 
 class PlaylistPage extends Component {
+  componentDidMount() {
+    // let username = this.props.match.params.username;
+    // console.log(username);
+    // fetch('http:localhost:8080/playlist?username=' + username)
+    //   .then(res => res.json())
+    //   .then(
+    //     (result) => {
+    //       console.log(result);
+    //       this.setState({usernameInfo: result});
+    //     },
+    //     (error) => {
+    //       console.log('error');
+    //     });
+  }
+
   render() {
     return(
       <div id='background' className='container-fluid'>

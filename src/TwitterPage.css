@@ -1,7 +1,10 @@
 html, body, #root, #background {
   height: 100%;
-  position: fixed;
   background-color: #884a8c;
+}
+
+.fixed {
+  position: fixed;
 }
 
 .centered {

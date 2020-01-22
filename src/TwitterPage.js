@@ -1,18 +1,47 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './TwitterPage.css';
+
+const exampleHandles = [
+  'BarackObama',
+  'realDonaldTrump',
+  'elonmusk',
+  'rihanna',
+  'cnnbrk',
+  'SportsCenter',
+  'NASA',
+  'EmmaWatson'
+];
 
 class TwitterPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      twitterHandle: 'BarackObama',
+      handleIndex: 0,
       textInput: '',
-      redirect: false
+      redirect: false,
+      changing: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.changeName = this.changeName.bind(this);
+  }
+
+  componentDidMount() {
+    let intervalId = setInterval(this.changeName, 3000);
+    this.setState({intervalId: intervalId});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+
+  changeName() {
+    console.log(this.state);
+    let newIndex = (this.state.handleIndex + 1) % exampleHandles.length;
+    this.setState({handleIndex: newIndex});
+    this.setState({changing: true});
   }
 
   handleChange(e) {
@@ -27,7 +56,7 @@ class TwitterPage extends Component {
 
   redirect() {
     if(this.state.redirect) {
-      return(<Redirect to={'/results/' + this.state.twitterHandle} />);
+      return(<Redirect to={'/results/' + this.state.textInput} />);
     }
     else {
       return('');
@@ -35,8 +64,9 @@ class TwitterPage extends Component {
   }
 
   render() {
+    let inputClass = this.state.changing ? 'form-control test' : 'form-control'
     return(
-      <div id='background' className='container-fluid'>
+      <div id='background' className='fixed container-fluid'>
         <div className='row h-100'>
           <div className='col-3' />
           <div className='col-6'>
@@ -47,7 +77,7 @@ class TwitterPage extends Component {
                     <div className="input-group-prepend">
                       <span className="input-group-text">@</span>
                     </div>
-                    <input className='form-control' placeholder={this.state.twitterHandle} value={this.state.value} onChange={this.handleChange} />
+                    <input type='text' className={inputClass} placeholder={exampleHandles[this.state.handleIndex]} value={this.state.value} onChange={this.handleChange} />
                   </div>
                   <label className='text-light ml-5 mt-1'>Enter your twitter handle...</label>
                 </div>

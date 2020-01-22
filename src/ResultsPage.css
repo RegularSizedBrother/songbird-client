@@ -5,4 +5,9 @@ html, body, #root, #background {
 
 .white {
   background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 20px;
+}
+
+.btn-rounded {
+  border-radius: 40px !important;
 }
