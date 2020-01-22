@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
+import { Redirect } from 'react-router-dom';
 import './PlaylistPage.css';
 
 const playlist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
@@ -7,7 +8,12 @@ const playlist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
 class PlaylistPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {playlist: playlist}
+    this.state = {
+      playlist: playlist,
+      redirect: false
+    };
+
+    this.handleClick = this.handleClick.bind(this);
   };
 
   componentDidMount() {
@@ -23,6 +29,19 @@ class PlaylistPage extends Component {
         (error) => {
           console.log('error');
         });
+  }
+
+  handleClick() {
+    this.setState({redirect: true});
+  }
+
+  redirect() {
+    if(this.state.redirect) {
+      return(<Redirect to={'/'} />);
+    }
+    else {
+      return('');
+    }
   }
 
   render() {
@@ -41,6 +60,16 @@ class PlaylistPage extends Component {
           </div>
           <div className='col-3' />
         </div>
+        <div className='row mt-2 mb-2'>
+          <div className='col-2'>
+          </div>
+          <div className='col-8'>
+            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>Run again...</button>
+          </div>
+          <div className='col-2'>
+          </div>
+        </div>
+        {this.redirect()}
       </div>
     );
   }
