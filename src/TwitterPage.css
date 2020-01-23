@@ -19,7 +19,7 @@ html, body, #root, #background {
 .test > i {
   position: absolute;
   display: block;
-  transform: translate(0, -50%);
+  transform: translate(0, -52%);
   top: 50%;
   pointer-events: none;
   width: 37px;

@@ -6,11 +6,11 @@ import { Redirect } from 'react-router-dom';
 import './ResultsPage.css';
 
 const data = [
-  { name: 'Openness', val: 40.7 },
-  { name: 'Conscientious', val: 80.3 },
-  { name: 'Extrovert', val: 2.2 },
-  { name: 'Agreeable', val: 67.8 },
-  { name: 'Empathy', val: 34.9 },
+  { name: 'Openness', val: 40 },
+  { name: 'Conscientious', val: 30 },
+  { name: 'Extrovert', val: 20 },
+  { name: 'Agreeable', val: 60 },
+  { name: 'Empathy', val: 34 },
 ];
 
 class ResultsPage extends Component {
@@ -112,7 +112,7 @@ class ResultsPage extends Component {
           <div className='col-2'>
           </div>
           <div className='col-8'>
-            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>See my playlist</button>
+            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>See my playlist...</button>
           </div>
           <div className='col-2'>
           </div>
