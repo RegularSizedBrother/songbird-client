@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
 import { Redirect } from 'react-router-dom';
-import './PlaylistPage.css';
+import './styles.css';
 
 const playlist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
 
@@ -17,9 +17,9 @@ class PlaylistPage extends Component {
   };
 
   componentDidMount() {
-    let username = this.props.match.params.username;
-    console.log(username);
-    fetch('http://localhost:5000/playlist/' + username)
+    let id = this.props.match.params.id;
+    console.log(id);
+    fetch('http://localhost:5000/playlist/' + id)
       .then(res => res.json())
       .then(
         (result) => {

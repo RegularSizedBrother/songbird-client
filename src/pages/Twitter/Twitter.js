@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import './TwitterPage.css';
+import './styles.css';
 
 const exampleHandles = [
   'BarackObama',
@@ -72,7 +72,7 @@ class TwitterPage extends Component {
   redirect() {
     console.log(this.state);
     if(this.state.redirect) {
-      return(<Redirect to={'/results/' + this.state.handle_id} />);
+      return(<Redirect to={'/attributes/' + this.state.handle_id} />);
     }
     else {
       return('');

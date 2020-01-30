@@ -3,7 +3,7 @@ import {
   BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import { Redirect } from 'react-router-dom';
-import './ResultsPage.css';
+import './styles.css';
 
 const data = [
   { name: 'Openness', val: 40 },
@@ -13,22 +13,22 @@ const data = [
   { name: 'Empathy', val: 34 },
 ];
 
-class ResultsPage extends Component {
+class AttributesPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       redirect: false,
-      usernameData: data
+      attributeData: data
     };
 
     this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    let username = this.props.match.params.username;
-    console.log(username);
-    fetch('http://localhost:5000/attributes/' + username)
+    let id = this.props.match.params.id;
+    console.log(id);
+    fetch('http://localhost:5000/attributes/' + id)
       .then(res => res.json())
       .then(
         (result) => {
@@ -40,7 +40,7 @@ class ResultsPage extends Component {
             { name: 'Empathy', val: result['Emotional Range'] },
           ];
           console.log(result);
-          this.setState({usernameData: data});
+          this.setState({attributeData: data});
         },
         (error) => {
           console.log('error');
@@ -52,9 +52,9 @@ class ResultsPage extends Component {
   }
 
   redirect() {
-    let username = this.props.match.params.username;
+    let id = this.props.match.params.id;
     if(this.state.redirect) {
-      return(<Redirect to={'/playlist/' + username} />);
+      return(<Redirect to={'/playlist/' + id} />);
     }
     else {
       return('');
@@ -70,7 +70,7 @@ class ResultsPage extends Component {
           <div className='col-6 white'>
             <ResponsiveContainer width='100%' height={400}>
               <BarChart
-                data={this.state.usernameData}
+                data={this.state.attributeData}
                 margin={{
                   top: 40, right: 30, left: 20, bottom: 5,
                 }}
@@ -92,7 +92,7 @@ class ResultsPage extends Component {
           <div className='col-6 white'>
             <ResponsiveContainer width='100%' height={400}>
               <LineChart
-                data={this.state.usernameData}
+                data={this.state.attributeData}
                 margin={{
                   top: 40, right: 30, left: 20, bottom: 5,
                 }}
@@ -123,5 +123,5 @@ class ResultsPage extends Component {
   }
 }
 
-export default ResultsPage;
+export default AttributesPage;
 
