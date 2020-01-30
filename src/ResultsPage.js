@@ -28,7 +28,7 @@ class ResultsPage extends Component {
   componentDidMount() {
     let username = this.props.match.params.username;
     console.log(username);
-    fetch('http://localhost:8080/username?username=' + username)
+    fetch('http://localhost:5000/attributes/' + username)
       .then(res => res.json())
       .then(
         (result) => {

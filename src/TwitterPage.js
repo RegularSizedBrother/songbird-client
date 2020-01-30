@@ -50,13 +50,29 @@ class TwitterPage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({redirect: true});
+    fetch('http://localhost:5000/twitter', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        handle: this.state.textInput
+      })
+    })
+    .then(res => res.json())
+    .then((response) => {
+      console.log(response);
+      this.setState({handle_id: response.handle_id});
+      this.setState({redirect: true});
+    });
     console.log('Submitted');
   }
 
   redirect() {
+    console.log(this.state);
     if(this.state.redirect) {
-      return(<Redirect to={'/results/' + this.state.textInput} />);
+      return(<Redirect to={'/results/' + this.state.handle_id} />);
     }
     else {
       return('');
