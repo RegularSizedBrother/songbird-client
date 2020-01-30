@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { TextInput } from '../../components/TextInput';
 import './styles.css';
 
 const exampleHandles = [
@@ -80,7 +81,6 @@ class TwitterPage extends Component {
   }
 
   render() {
-    let inputClass = this.state.changing ? 'form-control' : 'form-control'
     return(
       <div id='background' className='fixed container-fluid'>
         <div className='row h-100'>
@@ -88,15 +88,12 @@ class TwitterPage extends Component {
           <div className='col-6'>
             <div className='centered'>
               <h1 className="whiteText display-1 float-right">songbird.</h1>
-              <form onSubmit={this.handleSubmit}>
-                <div className='form-group'>
-                  <div className='input-group test'>
-                      <input type='text' className={inputClass} placeholder={exampleHandles[this.state.handleIndex]} value={this.state.value} onChange={this.handleChange} />
-                      <i>@</i>
-                  </div>
-                  <label className='text-light ml-4 mt-1'>Enter your twitter handle...</label>
-                </div>
-              </form>
+              <TextInput
+                placeholder={exampleHandles[this.state.handleIndex]}
+                value={this.state.textInput}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+              />
             </div>
           </div>
           <div className='col-3' />

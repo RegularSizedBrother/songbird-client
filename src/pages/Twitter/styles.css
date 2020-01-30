@@ -16,26 +16,7 @@ html, body, #root, #background {
   position: relative;
 }
 
-.test > i {
-  position: absolute;
-  display: block;
-  transform: translate(0, -52%);
-  top: 50%;
-  pointer-events: none;
-  width: 37px;
-  text-align: center;
-  font-style: normal;
-  z-index: 9;
-  color: rgb(100, 100, 100);
-}
-
 .whiteText {
   color: white;
-}
-
-.test > input {
-  padding-left: 25px;
-  padding-right: 0;
-  /* border-radius: 10px; */
 }
 
