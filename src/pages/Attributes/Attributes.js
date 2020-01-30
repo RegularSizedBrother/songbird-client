@@ -5,7 +5,7 @@ import {
 import { Redirect } from 'react-router-dom';
 import './styles.css';
 
-const data = [
+const defaultAttributes = [
   { name: 'Openness', val: 40 },
   { name: 'Conscientious', val: 30 },
   { name: 'Extrovert', val: 20 },
@@ -19,7 +19,7 @@ class AttributesPage extends Component {
 
     this.state = {
       redirect: false,
-      attributeData: data
+      attributeData: defaultAttributes
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -27,7 +27,6 @@ class AttributesPage extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log(id);
     fetch('http://localhost:5000/attributes/' + id)
       .then(res => res.json())
       .then(
@@ -39,11 +38,10 @@ class AttributesPage extends Component {
             { name: 'Agreeable', val: result['Agreeableness'] },
             { name: 'Empathy', val: result['Emotional Range'] },
           ];
-          console.log(result);
           this.setState({attributeData: data});
         },
         (error) => {
-          console.log('error');
+          console.log(error);
         });
   }
 
@@ -51,17 +49,12 @@ class AttributesPage extends Component {
     this.setState({redirect: true});
   }
 
-  redirect() {
+  render() {
     let id = this.props.match.params.id;
     if(this.state.redirect) {
-      return(<Redirect to={'/playlist/' + id} />);
+      return <Redirect to={'/playlist/' + id} />
     }
-    else {
-      return('');
-    }
-  }
 
-  render() {
     return(
       <div id='background' className='container-fluid'>
         <div className='row mt-2'>
@@ -117,7 +110,6 @@ class AttributesPage extends Component {
           <div className='col-2'>
           </div>
         </div>
-        {this.redirect()}
       </div>
     );
   }
