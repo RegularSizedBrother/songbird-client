@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<form>
+  <div
+    className="form-group"
+  >
+    <div
+      className="input-group test"
+    >
+      <input
+        className="form-control"
+        type="text"
+      />
+      <i>
+        @
+      </i>
+    </div>
+    <label
+      className="text-light ml-4 mt-1"
+    >
+      Enter your twitter handle...
+    </label>
+  </div>
+</form>
+`;
