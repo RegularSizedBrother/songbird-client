@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import {
-  BarChart, LineChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-} from 'recharts';
 import { Redirect } from 'react-router-dom';
+
+import { BarGraph } from '../../components/BarGraph';
 import './styles.css';
 
 const defaultAttributes = [
-  { name: 'Openness', val: 40 },
-  { name: 'Conscientious', val: 30 },
-  { name: 'Extrovert', val: 20 },
-  { name: 'Agreeable', val: 60 },
-  { name: 'Empathy', val: 34 },
+  { label: 'Openness', opposite: 'Shyness', value: 40-50 },
+  { label: 'Conscientious', opposite: 'Something', value: 30-50 },
+  { label: 'Extrovert', opposite: 'Introvert', value: 20-50 },
+  { label: 'Agreeable', opposite: 'Disagreeable', value: 60-50 },
+  { label: 'Empathy', opposite: 'Something', value: 34-50 },
 ];
 
 class AttributesPage extends Component {
@@ -32,11 +31,11 @@ class AttributesPage extends Component {
       .then(
         (result) => {
           let data = [
-            { name: 'Openness', val: result['Openness'] },
-            { name: 'Conscientious', val: result['Conscientiousness'] },
-            { name: 'Extrovert', val: result['Extraversion'] },
-            { name: 'Agreeable', val: result['Agreeableness'] },
-            { name: 'Empathy', val: result['Emotional Range'] },
+            { label: 'Openness', opposite: 'Closedness', value: result['Openness'] - 50 },
+            { label: 'Conscientious', opposite: 'Something', value: result['Conscientiousness'] - 50 },
+            { label: 'Extrovert', opposite: 'Introvert', value: result['Extraversion'] - 50 },
+            { label: 'Agreeable', opposite: 'Disagreeable', value: result['Agreeableness'] - 50 },
+            { label: 'Empathy', opposite: 'Something', value: result['Emotional Range'] - 50 },
           ];
           this.setState({attributeData: data});
         },
@@ -61,42 +60,7 @@ class AttributesPage extends Component {
           <div className='col-3'>
           </div>
           <div className='col-6 white'>
-            <ResponsiveContainer width='100%' height={400}>
-              <BarChart
-                data={this.state.attributeData}
-                margin={{
-                  top: 40, right: 30, left: 20, bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="val" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className='col-3'>
-          </div>
-        </div>
-        <div className='row mt-2'>
-          <div className='col-3'>
-          </div>
-          <div className='col-6 white'>
-            <ResponsiveContainer width='100%' height={400}>
-              <LineChart
-                data={this.state.attributeData}
-                margin={{
-                  top: 40, right: 30, left: 20, bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="val" stroke="#8884d8" activeDot={{ r: 8 }} />
-              </LineChart>
-            </ResponsiveContainer>
+            <BarGraph data={this.state.attributeData} />
           </div>
           <div className='col-3'>
           </div>
