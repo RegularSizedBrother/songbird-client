@@ -16,8 +16,7 @@ export default function BarGraph(props) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis xAxisId='opposite' dataKey="opposite" orientation='bottom' />
         <XAxis xAxisId='label' dataKey="label" orientation='top' />
-        <YAxis type='number' domain={[-50, 50]} />
-        <Tooltip />
+        <YAxis hide={true} type='number' domain={[-50, 50]} />
         <ReferenceLine xAxisId='label' y={0} stroke='#000' />
         <Bar xAxisId='label' dataKey="value" fill="#8884d8" />
       </BarChart>
