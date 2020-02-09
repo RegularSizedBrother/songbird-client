@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BarGraph renders correctly 1`] = `
+<div
+  className="recharts-responsive-container"
+  id="undefined"
+  style={
+    Object {
+      "height": 500,
+      "maxHeight": undefined,
+      "minHeight": undefined,
+      "minWidth": undefined,
+      "width": "100%",
+    }
+  }
+>
+  <div />
+</div>
+`;
