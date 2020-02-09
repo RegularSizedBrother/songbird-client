@@ -22,26 +22,44 @@ class AttributesPage extends Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.callApi = this.callApi.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
   }
 
   componentDidMount() {
+    this.callApi();
+  }
+
+  callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/attributes/' + id)
+    fetch('http://localhost:5000/bob/attributes/' + id)
       .then(res => res.json())
-      .then(
-        (result) => {
-          let data = [
-            { label: 'Openness', opposite: 'Closedness', value: result['Openness'] - 50 },
-            { label: 'Conscientious', opposite: 'Something', value: result['Conscientiousness'] - 50 },
-            { label: 'Extrovert', opposite: 'Introvert', value: result['Extraversion'] - 50 },
-            { label: 'Agreeable', opposite: 'Disagreeable', value: result['Agreeableness'] - 50 },
-            { label: 'Empathy', opposite: 'Something', value: result['Emotional Range'] - 50 },
-          ];
-          this.setState({attributeData: data});
-        },
+      .then(this.handleResponse,
         (error) => {
           console.log(error);
         });
+  }
+
+  handleResponse(res) {
+    if(res.wait) {
+      console.log('wait');
+      setTimeout(this.callApi, 1000);
+      return;
+    }
+
+    if(res.error) {
+      console.log("error");
+    } else {
+      console.log('fine');
+      let data = [
+        { label: 'Openness', opposite: 'Closedness', value: res.data['Openness'] - 50 },
+        { label: 'Conscientious', opposite: 'Something', value: res.data['Conscientiousness'] - 50 },
+        { label: 'Extrovert', opposite: 'Introvert', value: res.data['Extraversion'] - 50 },
+        { label: 'Agreeable', opposite: 'Disagreeable', value: res.data['Agreeableness'] - 50 },
+        { label: 'Empathy', opposite: 'Something', value: res.data['Emotional Range'] - 50 },
+      ];
+      this.setState({attributeData: data});
+    }
   }
 
   handleClick(e) {
