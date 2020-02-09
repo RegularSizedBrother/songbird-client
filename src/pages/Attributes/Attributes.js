@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { GridLoader } from 'react-spinners';
 
 import { BarGraph } from '../../components/BarGraph';
 import './styles.css';
@@ -18,6 +19,7 @@ class AttributesPage extends Component {
 
     this.state = {
       redirect: false,
+      displaySpinner: true,
       attributeData: defaultAttributes
     };
 
@@ -58,7 +60,7 @@ class AttributesPage extends Component {
         { label: 'Agreeable', opposite: 'Disagreeable', value: res.data['Agreeableness'] - 50 },
         { label: 'Empathy', opposite: 'Something', value: res.data['Emotional Range'] - 50 },
       ];
-      this.setState({attributeData: data});
+      this.setState({attributeData: data, displaySpinner: false});
     }
   }
 
@@ -67,9 +69,17 @@ class AttributesPage extends Component {
   }
 
   render() {
-    let id = this.props.match.params.id;
     if(this.state.redirect) {
+      let id = this.props.match.params.id;
       return <Redirect to={'/playlist/' + id} />
+    }
+
+    if(this.state.displaySpinner) {
+      return(
+        <div className='spinner-center'>
+          <GridLoader color='#fff' className='spinner-center' />
+        </div>
+      );
     }
 
     return(

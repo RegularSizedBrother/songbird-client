@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
 import { Redirect } from 'react-router-dom';
+import { GridLoader } from 'react-spinners';
+
 import './styles.css';
 
 const defaultPlaylist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
@@ -10,7 +12,8 @@ class PlaylistPage extends Component {
     super(props);
     this.state = {
       playlist: defaultPlaylist,
-      redirect: false
+      redirect: false,
+      displaySpinner: true
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -44,7 +47,7 @@ class PlaylistPage extends Component {
       console.log('error');
     } else {
       console.log('success');
-      this.setState({playlist: res.playlist});
+      this.setState({playlist: res.playlist, displaySpinner: false});
     }
   }
 
@@ -55,6 +58,14 @@ class PlaylistPage extends Component {
   render() {
     if(this.state.redirect) {
       return <Redirect to='/' />
+    }
+
+    if(this.state.displaySpinner) {
+      return(
+        <div className='spinner-center'>
+          <GridLoader color='#fff' className='spinner-center' />
+        </div>
+      );
     }
 
     return(
