@@ -1,18 +1,16 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import TwitterPage from './TwitterPage';
-import ResultsPage from './ResultsPage';
-import PlaylistPage from './PlaylistPage';
+import { TwitterPage } from './pages/Twitter';
+import { AttributesPage } from './pages/Attributes';
+import { PlaylistPage } from './pages/Playlist';
 
 function App() {
   return(
     <div>
       <Switch>
-        <Route path='/playlist/:username' component={PlaylistPage} />
-        <Route path='/results/:username' component={ResultsPage} />
-        <Route path='/'>
-          <TwitterPage />
-        </Route>
+        <Route path='/playlist/:id' component={PlaylistPage} />
+        <Route path='/attributes/:id' component={AttributesPage} />
+        <Route path='/' component={TwitterPage} />
       </Switch>
     </div>
   );

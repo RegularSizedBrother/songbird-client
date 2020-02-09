@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
 import { Redirect } from 'react-router-dom';
-import './PlaylistPage.css';
+import './styles.css';
 
-const playlist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
+const defaultPlaylist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
 
 class PlaylistPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlist: playlist,
+      playlist: defaultPlaylist,
       redirect: false
     };
 
@@ -17,9 +17,8 @@ class PlaylistPage extends Component {
   };
 
   componentDidMount() {
-    let username = this.props.match.params.username;
-    console.log(username);
-    fetch('http://localhost:5000/playlist/' + username)
+    let id = this.props.match.params.id;
+    fetch('http://localhost:5000/playlist/' + id)
       .then(res => res.json())
       .then(
         (result) => {
@@ -27,7 +26,7 @@ class PlaylistPage extends Component {
           this.setState({playlist: result.playlist});
         },
         (error) => {
-          console.log('error');
+          console.log(error);
         });
   }
 
@@ -35,16 +34,11 @@ class PlaylistPage extends Component {
     this.setState({redirect: true});
   }
 
-  redirect() {
-    if(this.state.redirect) {
-      return(<Redirect to={'/'} />);
-    }
-    else {
-      return('');
-    }
-  }
-
   render() {
+    if(this.state.redirect) {
+      return <Redirect to='/' />
+    }
+
     return(
       <div id='background' className='container-fluid'>
         <div className='row h-100'>
@@ -69,7 +63,6 @@ class PlaylistPage extends Component {
           <div className='col-2'>
           </div>
         </div>
-        {this.redirect()}
       </div>
     );
   }
