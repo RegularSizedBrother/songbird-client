@@ -6,11 +6,11 @@ import { BarGraph } from '../../components/BarGraph';
 import './styles.css';
 
 const defaultAttributes = [
-  { label: 'Openness', opposite: 'Shyness', value: 40-50 },
-  { label: 'Conscientious', opposite: 'Something', value: 30-50 },
-  { label: 'Extrovert', opposite: 'Introvert', value: 20-50 },
-  { label: 'Agreeable', opposite: 'Disagreeable', value: 60-50 },
-  { label: 'Empathy', opposite: 'Something', value: 34-50 },
+  { label: 'Curious', opposite: 'Cautious', value: 40-50 },
+  { label: 'Organized', opposite: 'Careless', value: 30-50 },
+  { label: 'Outgoing', opposite: 'Reserved', value: 20-50 },
+  { label: 'Friendly', opposite: 'Challenging', value: 60-50 },
+  { label: 'Nervous', opposite: 'Confident', value: 34-50 },
 ];
 
 class AttributesPage extends Component {
@@ -54,11 +54,11 @@ class AttributesPage extends Component {
     } else {
       console.log('fine');
       let data = [
-        { label: 'Openness', opposite: 'Closedness', value: res.data['Openness'] - 50 },
-        { label: 'Conscientious', opposite: 'Something', value: res.data['Conscientiousness'] - 50 },
-        { label: 'Extrovert', opposite: 'Introvert', value: res.data['Extraversion'] - 50 },
-        { label: 'Agreeable', opposite: 'Disagreeable', value: res.data['Agreeableness'] - 50 },
-        { label: 'Empathy', opposite: 'Something', value: res.data['Emotional Range'] - 50 },
+        { label: 'Curious', opposite: 'Cautious', value: res.data['Openness'] - 50  },
+        { label: 'Organized', opposite: 'Careless', value: res.data['Conscientiousness'] - 50 },
+        { label: 'Outgoing', opposite: 'Reserved', value: res.data['Extraversion'] - 50 },
+        { label: 'Friendly', opposite: 'Challenging', value: res.data['Agreeableness'] - 50 },
+        { label: 'Nervous', opposite: 'Confident', value: res.data['Emotional Range'] - 50 },
       ];
       this.setState({attributeData: data, displaySpinner: false});
     }
