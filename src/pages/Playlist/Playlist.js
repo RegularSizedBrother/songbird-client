@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
 import { Redirect } from 'react-router-dom';
+import { GridLoader } from 'react-spinners';
+
 import './styles.css';
 
 const defaultPlaylist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
@@ -10,24 +12,43 @@ class PlaylistPage extends Component {
     super(props);
     this.state = {
       playlist: defaultPlaylist,
-      redirect: false
+      redirect: false,
+      displaySpinner: true
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.callApi = this.callApi.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
   };
 
   componentDidMount() {
+    this.callApi();
+  }
+
+  callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/playlist/' + id)
+    fetch('http://localhost:5000/bob/playlist/' + id)
       .then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          this.setState({playlist: result.playlist});
-        },
+      .then(this.handleResponse,
         (error) => {
           console.log(error);
-        });
+        }
+      );
+  }
+
+  handleResponse(res) {
+    if(res.wait) {
+      console.log('wait');
+      setTimeout(this.callApi, 1000);
+      return;
+    }
+
+    if(res.error) {
+      console.log('error');
+    } else {
+      console.log('success');
+      this.setState({playlist: res.playlist, displaySpinner: false});
+    }
   }
 
   handleClick() {
@@ -37,6 +58,14 @@ class PlaylistPage extends Component {
   render() {
     if(this.state.redirect) {
       return <Redirect to='/' />
+    }
+
+    if(this.state.displaySpinner) {
+      return(
+        <div className='spinner-center'>
+          <GridLoader color='#fff' className='spinner-center' />
+        </div>
+      );
     }
 
     return(

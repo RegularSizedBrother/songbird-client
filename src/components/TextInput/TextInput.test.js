@@ -19,7 +19,7 @@ describe('TextInput', () => {
   });
 
   it('renders correctly', () => {
-    const tree = renderer.create(<TextInput />).toJSON();
+    const tree = renderer.create(<TextInput {...props} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
