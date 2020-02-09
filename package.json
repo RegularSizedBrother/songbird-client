@@ -16,8 +16,10 @@
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
+    "react-spinners": "^0.8.0",
     "react-spotify-player": "^1.0.4",
     "recharts": "^2.0.0-beta.1",
+    "react-test-renderer": "^16.12.0",
     "selenium-webdriver": "^4.0.0-alpha.5"
   },
   "scripts": {
@@ -43,6 +45,8 @@
     ]
   },
   "devDependencies": {
-    "start-server-and-test": "^1.10.8"
+    "start-server-and-test": "^1.10.8",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2"
   }
 }

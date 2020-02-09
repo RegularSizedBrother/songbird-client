@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import './TwitterPage.css';
+import { TextInput } from '../../components/TextInput';
+import './styles.css';
 
 const exampleHandles = [
   'BarackObama',
@@ -29,19 +30,16 @@ class TwitterPage extends Component {
   }
 
   componentDidMount() {
-    let intervalId = setInterval(this.changeName, 3000);
-    this.setState({intervalId: intervalId});
+    this.intervalId = setInterval(this.changeName, 3000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.intervalId);
+    clearInterval(this.intervalId);
   }
 
   changeName() {
-    console.log(this.state);
     let newIndex = (this.state.handleIndex + 1) % exampleHandles.length;
-    this.setState({handleIndex: newIndex});
-    this.setState({changing: true});
+    this.setState({handleIndex: newIndex, changing: true});
   }
 
   handleChange(e) {
@@ -50,8 +48,8 @@ class TwitterPage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('http://localhost:5000/twitter', {
-      method: 'post',
+    fetch('http://localhost:5000/bob/twitter', {
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -62,25 +60,18 @@ class TwitterPage extends Component {
     })
     .then(res => res.json())
     .then((response) => {
+      this.setState({handle_id: response.handle_id, redirect: true});
+    })
+    .catch((response) => {
       console.log(response);
-      this.setState({handle_id: response.handle_id});
-      this.setState({redirect: true});
     });
-    console.log('Submitted');
-  }
-
-  redirect() {
-    console.log(this.state);
-    if(this.state.redirect) {
-      return(<Redirect to={'/results/' + this.state.handle_id} />);
-    }
-    else {
-      return('');
-    }
   }
 
   render() {
-    let inputClass = this.state.changing ? 'form-control' : 'form-control'
+    if(this.state.redirect) {
+      return <Redirect to={'/attributes/' + this.state.handle_id} />
+    }
+
     return(
       <div id='background' className='fixed container-fluid'>
         <div className='row h-100'>
@@ -88,20 +79,16 @@ class TwitterPage extends Component {
           <div className='col-6'>
             <div className='centered'>
               <h1 className="whiteText display-1 float-right">songbird.</h1>
-              <form onSubmit={this.handleSubmit}>
-                <div className='form-group'>
-                  <div className='input-group test'>
-                      <input type='text' className={inputClass} placeholder={exampleHandles[this.state.handleIndex]} value={this.state.value} onChange={this.handleChange} />
-                      <i>@</i>
-                  </div>
-                  <label className='text-light ml-4 mt-1'>Enter your twitter handle...</label>
-                </div>
-              </form>
+              <TextInput
+                placeholder={exampleHandles[this.state.handleIndex]}
+                value={this.state.textInput}
+                onChange={this.handleChange}
+                onSubmit={this.handleSubmit}
+              />
             </div>
           </div>
           <div className='col-3' />
         </div>
-        {this.redirect()}
       </div>
     );
   }
