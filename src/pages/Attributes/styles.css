@@ -11,3 +11,10 @@ html, body, #root, #background {
 .btn-rounded {
   border-radius: 40px !important;
 }
+
+.spinner-center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
