@@ -28,7 +28,7 @@ class PlaylistPage extends Component {
 
   callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/bob/playlist/' + id)
+    fetch('http://localhost:5000/playlist/' + id)
       .then(res => res.json())
       .then(this.handleResponse,
         (error) => {

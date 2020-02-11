@@ -35,7 +35,7 @@ class AttributesPage extends Component {
 
   callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/bob/attributes/' + id)
+    fetch('http://localhost:5000/attributes/' + id)
       .then(res => res.json())
       .then(this.handleResponse,
         (error) => {
