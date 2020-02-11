@@ -20,7 +20,8 @@ class AttributesPage extends Component {
     this.state = {
       redirect: false,
       displaySpinner: true,
-      attributeData: defaultAttributes
+      attributeData: defaultAttributes,
+      error: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -34,11 +35,11 @@ class AttributesPage extends Component {
 
   callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/attributes/' + id)
+    fetch('http://localhost:5000/bob/attributes/' + id)
       .then(res => res.json())
       .then(this.handleResponse,
         (error) => {
-          console.log(error);
+          this.setState({error: true});
         });
   }
 
@@ -50,9 +51,8 @@ class AttributesPage extends Component {
     }
 
     if(res.error) {
-      console.log("error");
+      this.setState({error: true});
     } else {
-      console.log('fine');
       let data = [
         { label: 'Curious', opposite: 'Cautious', value: res.data['Openness'] - 50  },
         { label: 'Organized', opposite: 'Careless', value: res.data['Conscientiousness'] - 50 },
@@ -69,6 +69,10 @@ class AttributesPage extends Component {
   }
 
   render() {
+    if(this.state.error) {
+      return <Redirect to='/error' />;
+    }
+
     if(this.state.redirect) {
       let id = this.props.match.params.id;
       return <Redirect to={'/playlist/' + id} />
@@ -97,7 +101,7 @@ class AttributesPage extends Component {
           <div className='col-2'>
           </div>
           <div className='col-8'>
-            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>See my playlist...</button>
+            <button className='btn btn-light btn-block btn-rounded' onClick={this.handleClick}>See my playlist...</button>
           </div>
           <div className='col-2'>
           </div>

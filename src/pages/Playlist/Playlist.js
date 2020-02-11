@@ -13,7 +13,8 @@ class PlaylistPage extends Component {
     this.state = {
       playlist: defaultPlaylist,
       redirect: false,
-      displaySpinner: true
+      displaySpinner: true,
+      error: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -27,11 +28,11 @@ class PlaylistPage extends Component {
 
   callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/playlist/' + id)
+    fetch('http://localhost:5000/bob/playlist/' + id)
       .then(res => res.json())
       .then(this.handleResponse,
         (error) => {
-          console.log(error);
+          this.setState({error: true});
         }
       );
   }
@@ -44,9 +45,8 @@ class PlaylistPage extends Component {
     }
 
     if(res.error) {
-      console.log('error');
+      this.setState({error: true});
     } else {
-      console.log('success');
       this.setState({playlist: res.playlist, displaySpinner: false});
     }
   }
@@ -56,6 +56,10 @@ class PlaylistPage extends Component {
   }
 
   render() {
+    if(this.state.error) {
+      return <Redirect to='/error' />;
+    }
+
     if(this.state.redirect) {
       return <Redirect to='/' />
     }
@@ -87,7 +91,7 @@ class PlaylistPage extends Component {
           <div className='col-2'>
           </div>
           <div className='col-8'>
-            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>Run again...</button>
+            <button className='btn btn-light btn-block btn-rounded' onClick={this.handleClick}>Run again...</button>
           </div>
           <div className='col-2'>
           </div>
