@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SpotifyPlayer from 'react-spotify-player';
 import { Redirect } from 'react-router-dom';
-import { GridLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 import './styles.css';
 
@@ -63,7 +63,7 @@ class PlaylistPage extends Component {
     if(this.state.displaySpinner) {
       return(
         <div className='spinner-center'>
-          <GridLoader color='#fff' className='spinner-center' />
+          <ScaleLoader color='#fff' className='spinner-center' />
         </div>
       );
     }

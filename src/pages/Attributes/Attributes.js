@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { GridLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 import { BarGraph } from '../../components/BarGraph';
 import './styles.css';
@@ -77,7 +77,7 @@ class AttributesPage extends Component {
     if(this.state.displaySpinner) {
       return(
         <div className='spinner-center'>
-          <GridLoader color='#fff' className='spinner-center' />
+          <ScaleLoader color='#fff' />
         </div>
       );
     }
