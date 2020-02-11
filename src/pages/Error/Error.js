@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import image from './error_image_white.png';
+import { ErrorIcon } from '../../components/ErrorIcon';
 import './styles.css';
 
 export default class ErrorPage extends Component {
@@ -28,8 +28,8 @@ export default class ErrorPage extends Component {
           <div className='col-2' />
           <div className='col-8'>
             <div className='centered error-centered'>
+              <ErrorIcon className='pr-5' height='300' />
               <span className="whiteText display-4">Something went wrong.</span>
-              <img src={image} height={50} className="bird pl-2" />
             </div>
           </div>
           <div className='col-2' />
