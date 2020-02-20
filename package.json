@@ -9,7 +9,6 @@
     "bootstrap": "^4.4.1",
     "chai": "^4.2.0",
     "geckodriver": "^1.19.1",
-    "chromedriver": "^80.0.0",
     "http-server": "^0.12.1",
     "mocha": "^7.0.1",
     "react": "^16.12.0",
