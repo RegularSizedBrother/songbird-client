@@ -1,0 +1,10 @@
+.bird {
+  position: relative;
+  top: -18px;
+}
+
+.error-centered {
+  top: 15%;
+  text-align: center;
+}
+

@@ -48,7 +48,7 @@ class TwitterPage extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    fetch('http://localhost:5000/bob/twitter', {
+    fetch('http://localhost:5000/twitter', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

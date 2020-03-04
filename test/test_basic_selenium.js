@@ -12,7 +12,7 @@ driver.get("http://localhost:3000/");
 it('Title of page should be React App', function() { 
     title = driver.getTitle();
     console.log(title)
-    title == "React App"
+    title == "Songbird"
 }).timeout(10000);
 
 driver.quit();

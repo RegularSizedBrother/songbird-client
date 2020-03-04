@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { GridLoader } from 'react-spinners';
+import { ScaleLoader } from 'react-spinners';
 
 import { BarGraph } from '../../components/BarGraph';
 import './styles.css';
 
 const defaultAttributes = [
-  { label: 'Openness', opposite: 'Shyness', value: 40-50 },
-  { label: 'Conscientious', opposite: 'Something', value: 30-50 },
-  { label: 'Extrovert', opposite: 'Introvert', value: 20-50 },
-  { label: 'Agreeable', opposite: 'Disagreeable', value: 60-50 },
-  { label: 'Empathy', opposite: 'Something', value: 34-50 },
+  { label: 'Curious', opposite: 'Cautious', value: 40-50 },
+  { label: 'Organized', opposite: 'Careless', value: 30-50 },
+  { label: 'Outgoing', opposite: 'Reserved', value: 20-50 },
+  { label: 'Friendly', opposite: 'Challenging', value: 60-50 },
+  { label: 'Nervous', opposite: 'Confident', value: 34-50 },
 ];
 
 class AttributesPage extends Component {
@@ -20,7 +20,8 @@ class AttributesPage extends Component {
     this.state = {
       redirect: false,
       displaySpinner: true,
-      attributeData: defaultAttributes
+      attributeData: defaultAttributes,
+      error: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -34,11 +35,11 @@ class AttributesPage extends Component {
 
   callApi() {
     let id = this.props.match.params.id;
-    fetch('http://localhost:5000/bob/attributes/' + id)
+    fetch('http://localhost:5000/attributes/' + id)
       .then(res => res.json())
       .then(this.handleResponse,
         (error) => {
-          console.log(error);
+          this.setState({error: true});
         });
   }
 
@@ -50,15 +51,14 @@ class AttributesPage extends Component {
     }
 
     if(res.error) {
-      console.log("error");
+      this.setState({error: true});
     } else {
-      console.log('fine');
       let data = [
-        { label: 'Openness', opposite: 'Closedness', value: res.data['Openness'] - 50 },
-        { label: 'Conscientious', opposite: 'Something', value: res.data['Conscientiousness'] - 50 },
-        { label: 'Extrovert', opposite: 'Introvert', value: res.data['Extraversion'] - 50 },
-        { label: 'Agreeable', opposite: 'Disagreeable', value: res.data['Agreeableness'] - 50 },
-        { label: 'Empathy', opposite: 'Something', value: res.data['Emotional Range'] - 50 },
+        { label: 'Curious', opposite: 'Cautious', value: res.data['Openness'] - 50  },
+        { label: 'Organized', opposite: 'Careless', value: res.data['Conscientiousness'] - 50 },
+        { label: 'Outgoing', opposite: 'Reserved', value: res.data['Extraversion'] - 50 },
+        { label: 'Friendly', opposite: 'Challenging', value: res.data['Agreeableness'] - 50 },
+        { label: 'Nervous', opposite: 'Confident', value: res.data['Emotional Range'] - 50 },
       ];
       this.setState({attributeData: data, displaySpinner: false});
     }
@@ -69,6 +69,10 @@ class AttributesPage extends Component {
   }
 
   render() {
+    if(this.state.error) {
+      return <Redirect to='/error' />;
+    }
+
     if(this.state.redirect) {
       let id = this.props.match.params.id;
       return <Redirect to={'/playlist/' + id} />
@@ -77,7 +81,7 @@ class AttributesPage extends Component {
     if(this.state.displaySpinner) {
       return(
         <div className='spinner-center'>
-          <GridLoader color='#fff' className='spinner-center' />
+          <ScaleLoader color='#fff' />
         </div>
       );
     }
@@ -97,7 +101,7 @@ class AttributesPage extends Component {
           <div className='col-2'>
           </div>
           <div className='col-8'>
-            <button className='btn btn-dark btn-block btn-rounded' onClick={this.handleClick}>See my playlist...</button>
+            <button className='btn btn-light btn-block btn-rounded' onClick={this.handleClick}>See my playlist...</button>
           </div>
           <div className='col-2'>
           </div>
