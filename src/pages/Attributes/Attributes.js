@@ -21,7 +21,8 @@ class AttributesPage extends Component {
       redirect: false,
       displaySpinner: true,
       attributeData: defaultAttributes,
-      error: false
+      error: false,
+      finished: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -61,6 +62,12 @@ class AttributesPage extends Component {
         { label: 'Nervous', opposite: 'Confident', value: res.data['Emotional Range'] - 50 },
       ];
       this.setState({attributeData: data, displaySpinner: false});
+
+      if(!res.finished) {
+        setTimeout(this.callApi, 1000);
+      } else {
+        this.setState({finished: true});
+      }
     }
   }
 
@@ -101,7 +108,7 @@ class AttributesPage extends Component {
           <div className='col-2'>
           </div>
           <div className='col-8'>
-            <button className='btn btn-light btn-block btn-rounded' onClick={this.handleClick}>See my playlist...</button>
+            <button className='btn btn-light btn-block btn-rounded' onClick={this.handleClick} disabled={!this.state.finished}>See my playlist...</button>
           </div>
           <div className='col-2'>
           </div>

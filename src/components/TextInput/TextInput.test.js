@@ -14,6 +14,8 @@ describe('TextInput', () => {
       onChange: jest.fn(() => 'onChange'),
       placeholder: 'BarackObama',
       value: '',
+      label: "Enter your Twitter handle...",
+      prefix: "@"
     };
     wrapper = shallow(<TextInput {...props} />);
   });
