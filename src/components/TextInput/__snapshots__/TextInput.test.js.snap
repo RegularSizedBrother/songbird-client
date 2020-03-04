@@ -24,7 +24,7 @@ exports[`TextInput renders correctly 1`] = `
     <label
       className="text-light ml-4 mt-1"
     >
-      Enter your twitter handle...
+      Enter your Twitter handle...
     </label>
   </div>
 </form>
