@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { ScaleLoader } from 'react-spinners';
 
 import { BarGraph } from '../../components/BarGraph';
+import { RadarGraph } from '../../components/RadarGraph';
 import './styles.css';
 
 const defaultAttributes = [
@@ -20,7 +21,8 @@ class AttributesPage extends Component {
     this.state = {
       redirect: false,
       displaySpinner: true,
-      attributeData: defaultAttributes,
+      attributeData1: defaultAttributes,
+      attributeData2: defaultAttributes,
       error: false,
       finished: false
     };
@@ -54,15 +56,22 @@ class AttributesPage extends Component {
     if(res.error) {
       this.setState({error: true});
     } else {
-      let data = [
+      let data1 = [
         { label: 'Curious', opposite: 'Cautious', value: res.data['Openness'] - 50  },
         { label: 'Organized', opposite: 'Careless', value: res.data['Conscientiousness'] - 50 },
         { label: 'Outgoing', opposite: 'Reserved', value: res.data['Extraversion'] - 50 },
         { label: 'Friendly', opposite: 'Challenging', value: res.data['Agreeableness'] - 50 },
         { label: 'Nervous', opposite: 'Confident', value: res.data['Emotional Range'] - 50 },
       ];
-      this.setState({attributeData: data, displaySpinner: false});
-
+      this.setState({attributeData1: data1, displaySpinner: false});
+      let data2 = [
+        { label: 'Curious', opposite: 'Cautious', value: res.data['Openness']  },
+        { label: 'Organized', opposite: 'Careless', value: res.data['Conscientiousness'] },
+        { label: 'Outgoing', opposite: 'Reserved', value: res.data['Extraversion'] },
+        { label: 'Friendly', opposite: 'Challenging', value: res.data['Agreeableness'] },
+        { label: 'Nervous', opposite: 'Confident', value: res.data['Emotional Range'] },
+      ];
+      this.setState({attributeData2: data2, displaySpinner: false});
       if(!res.finished) {
         setTimeout(this.callApi, 1000);
       } else {
@@ -99,7 +108,16 @@ class AttributesPage extends Component {
           <div className='col-3'>
           </div>
           <div className='col-6 white'>
-            <BarGraph data={this.state.attributeData} />
+            <BarGraph data={this.state.attributeData1} />
+          </div>
+          <div className='col-3'>
+          </div>
+        </div>
+        <div className='row mt-3'>
+          <div className='col-3'>
+          </div>
+          <div className='col-6 white'>
+            <RadarGraph data ={this.state.attributeData2} />
           </div>
           <div className='col-3'>
           </div>
