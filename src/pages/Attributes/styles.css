@@ -12,9 +12,20 @@ html, body, #root, #background {
   border-radius: 40px !important;
 }
 
+.spinner-center-text {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .spinner-center {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.spacer {
+  padding-top: 200px;
 }

@@ -4,6 +4,7 @@ import { ScaleLoader } from 'react-spinners';
 
 import { BarGraph } from '../../components/BarGraph';
 import { RadarGraph } from '../../components/RadarGraph';
+import { TextTicker } from '../../components/TextTicker';
 import './styles.css';
 
 const defaultAttributes = [
@@ -12,6 +13,12 @@ const defaultAttributes = [
   { label: 'Outgoing', opposite: 'Reserved', value: 20-50 },
   { label: 'Friendly', opposite: 'Challenging', value: 60-50 },
   { label: 'Nervous', opposite: 'Confident', value: 34-50 },
+];
+
+const defaultSpinnerFacts = [
+  'Gathering data...',
+  'Processing data...',
+  'Analyzing data...'
 ];
 
 class AttributesPage extends Component {
@@ -24,16 +31,28 @@ class AttributesPage extends Component {
       attributeData1: defaultAttributes,
       attributeData2: defaultAttributes,
       error: false,
-      finished: false
+      finished: false,
+      fact: 0
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.callApi = this.callApi.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
+    this.changeFact = this.changeFact.bind(this);
   }
 
   componentDidMount() {
+    this.intervalId = setInterval(this.changeFact, 5000);
     this.callApi();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  changeFact() {
+    let nextFact = (this.state.fact + 1) % defaultSpinnerFacts.length;
+    this.setState({fact: nextFact});
   }
 
   callApi() {
@@ -95,9 +114,14 @@ class AttributesPage extends Component {
     }
 
     if(this.state.displaySpinner) {
+      let text = defaultSpinnerFacts[this.state.fact];
       return(
-        <div className='spinner-center'>
-          <ScaleLoader color='#fff' />
+        <div className='spinner-page'>
+          <div className='spacer'></div>
+          <TextTicker fact={text}/>
+          <div className='spinner-center-text'>
+            <ScaleLoader color='#fff' />
+          </div>
         </div>
       );
     }
