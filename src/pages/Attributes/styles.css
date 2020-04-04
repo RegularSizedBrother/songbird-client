@@ -29,3 +29,8 @@ html, body, #root, #background {
 .spacer {
   padding-top: 200px;
 }
+
+.profile {
+  color: white;
+  font: 30px;
+}

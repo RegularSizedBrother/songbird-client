@@ -32,7 +32,8 @@ class AttributesPage extends Component {
       attributeData2: defaultAttributes,
       error: false,
       finished: false,
-      fact: 0
+      fact: 0,
+      mbti: 'INTJ'
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -90,7 +91,9 @@ class AttributesPage extends Component {
         { label: 'Friendly', opposite: 'Challenging', value: res.data['Agreeableness'] },
         { label: 'Nervous', opposite: 'Confident', value: res.data['Emotional Range'] },
       ];
-      this.setState({attributeData2: data2, displaySpinner: false});
+      this.setState({attributeData2: data2});
+      let curr_mbti = res.data['MBTI'];
+      this.setState({mbti: curr_mbti})
       if(!res.finished) {
         setTimeout(this.callApi, 1000);
       } else {
@@ -130,6 +133,9 @@ class AttributesPage extends Component {
       <div id='background' className='container-fluid'>
         <div className='row mt-2'>
           <div className='col-3'>
+            <div className='profile'>
+              <p>Your MBTI profile: {this.state.mbti}</p>
+            </div>
           </div>
           <div className='col-6 white'>
             <BarGraph data={this.state.attributeData1} />
