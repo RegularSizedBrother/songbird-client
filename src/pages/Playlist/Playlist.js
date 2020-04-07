@@ -6,12 +6,14 @@ import { ScaleLoader } from 'react-spinners';
 import './styles.css';
 
 const defaultPlaylist = 'https://open.spotify.com/playlist/37i9dQZF1DX1PfYnYcpw8w';
+const defaultGenres = ""
 
 class PlaylistPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       playlist: defaultPlaylist,
+      genres: defaultGenres,
       redirect: false,
       displaySpinner: true,
       error: false
@@ -47,7 +49,7 @@ class PlaylistPage extends Component {
     if(res.error) {
       this.setState({error: true});
     } else {
-      this.setState({playlist: res.playlist, displaySpinner: false});
+      this.setState({playlist: res.playlist, genres:res.genres, displaySpinner: false});
     }
   }
 
@@ -78,6 +80,7 @@ class PlaylistPage extends Component {
           <div className='col-3' />
           <div className='col-6'>
             <span className='display-4 text-light'>A playlist, just for you...</span>
+            <span className='display-4 text-light'> {this.state.genres} </span>
             <div className='mt-3'>
               <SpotifyPlayer
                 uri={this.state.playlist}
