@@ -138,6 +138,16 @@ class TwitterPage extends Component {
                   <input type="radio" name="source" id="source1" autocomplete="off" onClick={this.handleRedditPress} /> Reddit
                 </label>
               </div>
+              <div className='col-3'></div>
+              <div className='row mt-2 mb-2'>
+                <div className='col-2'>
+                </div>
+                <div className='col-8'>
+                  <button className='btn btn-light btn-block btn-rounded' onClick={this.handleSubmit}>Click here or press Enter to continue...</button>
+                </div>
+                <div className='col-2'>
+                </div>
+              </div>
             </div>
           </div>
           <div className='col-3' />
